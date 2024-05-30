@@ -16,5 +16,5 @@ public sealed class KronverkCVars
         CVarDef.Create("ic.antispam_min_length", 7, CVar.SERVERONLY);
 
     public static readonly CVarDef<double> AntispamIntervalSeconds =
-        CVarDef.Create("ic.antispam_interval_seconds", 60d, CVar.SERVERONLY);
+        CVarDef.Create("ic.antispam_interval_seconds", 3d, CVar.SERVERONLY);
 }
