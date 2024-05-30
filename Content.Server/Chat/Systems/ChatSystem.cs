@@ -232,6 +232,10 @@ public sealed partial class ChatSystem : SharedChatSystem
         if (string.IsNullOrEmpty(message))
             return;
 
+        if (desiredType != InGameICChatType.Emote && player is not null &&
+            !_chatManager.TrySendNewMessage(player, message, true)) // KRONVERK
+            return;
+
         // This message may have a radio prefix, and should then be whispered to the resolved radio channel
         if (checkRadioPrefix)
         {
@@ -287,6 +291,9 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         // If crit player LOOC is disabled, don't send the message at all.
         if (!_critLoocEnabled && _mobStateSystem.IsCritical(source))
+            return;
+
+        if (!_chatManager.TrySendNewMessage(player, message)) // KRONVERK
             return;
 
         switch (sendType)

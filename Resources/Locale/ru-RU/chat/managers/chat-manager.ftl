@@ -116,3 +116,6 @@ chat-speech-verb-name-electricity = Электричество
 chat-speech-verb-electricity-1 = трещит
 chat-speech-verb-electricity-2 = гудит
 chat-speech-verb-electricity-3 = скрипит
+
+### Kronverk
+chat-manager-antispam-warn-message = Вы сможете повторить сообщение через { $remainingTime } сек.

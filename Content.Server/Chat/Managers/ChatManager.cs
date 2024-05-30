@@ -11,6 +11,7 @@ using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Database;
+using Content.Shared.Kronverk;
 using Content.Shared.Mind;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
@@ -56,6 +57,11 @@ namespace Content.Server.Chat.Managers
         private bool _oocEnabled = true;
         private bool _adminOocEnabled = true;
 
+        private readonly Dictionary<NetUserId, (string, TimeSpan)> _lastMessages = new();
+        private bool _antispam;
+        private int _antispamMinLength;
+        private double _antispamIntervalSeconds;
+
         private readonly Dictionary<NetUserId, ChatUser> _players = new();
 
         public void Initialize()
@@ -68,6 +74,13 @@ namespace Content.Server.Chat.Managers
             _configurationManager.OnValueChanged(CCVars.AdminOocEnabled, OnAdminOocEnabledChanged, true);
 
             _playerManager.PlayerStatusChanged += PlayerStatusChanged;
+
+            // KRONVERK START
+            _configurationManager.OnValueChanged(KronverkCVars.ChatAntispam, val => _antispam = val, true);
+            _configurationManager.OnValueChanged(KronverkCVars.AntispamMinLength, val => _antispamMinLength = val, true);
+            _configurationManager.OnValueChanged(KronverkCVars.AntispamIntervalSeconds,
+                val => _antispamIntervalSeconds = val, true);
+            // KRONVERK END
         }
 
         private void OnOocEnabledChanged(bool val)
@@ -199,6 +212,33 @@ namespace Content.Server.Chat.Managers
 
         #endregion
 
+        // KRONVERK EDIT
+        public bool TrySendNewMessage(ICommonSession session, string newMessage, bool checkLength = false)
+        {
+            if (!_antispam || checkLength && newMessage.Length < _antispamMinLength)
+            {
+                _lastMessages.Remove(session.Data.UserId);
+                return true;
+            }
+
+            var curTime = _gameTiming.CurTime;
+            if (_lastMessages.TryGetValue(session.Data.UserId, out var value))
+            {
+                var interval = (curTime - value.Item2).TotalSeconds;
+                var difference = _antispamIntervalSeconds - interval;
+                if (value.Item1 == newMessage && difference > 0d)
+                {
+                    DispatchServerMessage(session,
+                        Loc.GetString("chat-manager-antispam-warn-message", ("remainingTime", (int) difference)));
+                    return false;
+                }
+            }
+            _lastMessages[session.Data.UserId] = (newMessage, curTime);
+
+            return true;
+        }
+        // KRONVERK EDIT
+
         #region Public OOC Chat API
 
         /// <summary>
@@ -247,6 +287,9 @@ namespace Content.Server.Chat.Managers
             {
                 return;
             }
+
+            if (!TrySendNewMessage(player, message)) // KRONVERK
+                return;
 
             Color? colorOverride = null;
             var wrappedMessage = Loc.GetString("chat-manager-send-ooc-wrap-message", ("playerName",player.Name), ("message", FormattedMessage.EscapeText(message)));
