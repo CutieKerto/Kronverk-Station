@@ -26,9 +26,9 @@ ent-ClothingBackpackDuffelScience = вещмешок учёного
     .desc = Большой вещмешок для хранения дополнительных научных предметов.
 ent-ClothingBackpackDuffelHydroponics = вещмешок ботаника
     .desc = Большой вещмешок для хранения дополнительных садовых инструментов.
-ent-ClothingBackpackDuffelCargo = вещмешок грузчика
+ent-ClothingBackpackDuffelCargo = вещмешок грузчика ПРК
     .desc = Большой вещмешок для для воровства драгоценной добычи.
-ent-ClothingBackpackDuffelSalvage = вещмешок утилизатора
+ent-ClothingBackpackDuffelSalvage = вещмешок шахтера ПРК
     .desc = Большой вещмешок для хранения дополнительных экзотических сокровищ.
 # Corvax-HiddenDesc-Start
 ent-ClothingBackpackDuffelSyndicate = чёрно-красный вещмешок
