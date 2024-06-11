@@ -326,6 +326,18 @@
   - Inventory # Corvax-Loadouts
 
 - type: roleLoadout
+  id: JobSubDetective
+  groups:
+  - DetectiveHead
+  - DetectiveNeck
+  - DetectiveJumpsuit
+  - DetectiveBackpack
+  - DetectiveOuterClothing
+  - SecurityShoes
+  - Trinkets
+  - Inventory # Corvax-Loadouts
+
+- type: roleLoadout
   id: JobSecurityCadet
   groups:
   - SecurityCadetJumpsuit
