@@ -82,6 +82,7 @@
   - SecurityOfficer
   - Pilot # Corvax-Pilot
   - Detective
+  - SubDetective
   - Warden
 
 - type: department
