@@ -7,7 +7,7 @@
   - !type:DepartmentTimeRequirement
     department: Security
     time: 36000 #20 hrs # Corvax-RoleTime
-  startingGear: DetectiveGear
+  startingGear: SubDetectiveGear
   icon: "JobIconDetective"
   supervisors: job-supervisors-hos
   canBeAntag: false
@@ -19,7 +19,7 @@
   - Detective
 
 - type: startingGear
-  id: DetectiveGear
+  id: SubDetectiveGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: SubDetectivePDA
