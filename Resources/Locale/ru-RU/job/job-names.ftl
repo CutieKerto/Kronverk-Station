@@ -1,7 +1,7 @@
 job-name-warden = надзиратель ГОК
 job-name-security = сержант ГОК
 job-name-cadet = стажер ГОК
-job-name-hos = управляющий ГБР
+job-name-hos = управляющий ГОК
 job-name-detective = агент ШК
 job-name-brigmedic = бригмедик
 job-name-borg = киборг
