@@ -1,12 +1,12 @@
 - type: job
-  id: Detective
-  name: job-name-detective
+  id: SubDetective
+  name: job-name-subdetective
   description: job-description-detective
-  playTimeTracker: JobDetective
+  playTimeTracker: JobSubDetective
   requirements:
   - !type:DepartmentTimeRequirement
     department: Security
-    time: 72000 #20 hrs # Corvax-RoleTime
+    time: 36000 #20 hrs # Corvax-RoleTime
   startingGear: DetectiveGear
   icon: "JobIconDetective"
   supervisors: job-supervisors-hos
@@ -17,14 +17,11 @@
   - Maintenance
   - Service
   - Detective
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
 
 - type: startingGear
   id: DetectiveGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
-    id: DetectivePDA
+    id: SubDetectivePDA
     ears: ClothingHeadsetSecurity
     belt: ClothingBeltHolsterFilled
